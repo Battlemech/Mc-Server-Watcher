@@ -1,16 +1,13 @@
-from mcstatus import MinecraftServer
+from mcstatus import BedrockServer
 
 # look for locally running server instance
-server = MinecraftServer.lookup("localhost:25565")
+server = BedrockServer.lookup("localhost")
 didPlayersJoin = False
 
 def IsServerEmpty():
-    query = server.query()
-
-    if query.players.online == 0:
-        return True
+    status = server.status()
     
-    return False
+    return status.players.online == 0
 
 def IsServerAbandonded():
     isEmpty = IsServerEmpty()
@@ -20,7 +17,4 @@ def IsServerAbandonded():
         global didPlayersJoin
         didPlayersJoin = True
 
-    if isEmpty and didPlayersJoin:
-        return True
-    
-    return False
+    return isEmpty and didPlayersJoin
