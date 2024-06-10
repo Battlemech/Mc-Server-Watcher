@@ -1,15 +1,13 @@
-from src.instance_stopper import stop_instance
-from src.interface.mc_server_interface import run_server
+from src.mc_server_interface import MCServerInterface
+import os
 
 def main():
-    try:
-        # run the server until no players are online
-        run_server()
+    # run the server until no players are online
+    server = MCServerInterface()
+    server.waitForExit()
 
-        # stop the instance: it is no longer required
-        stop_instance()
-    except Exception as e:
-        print(f'Error starting server: {str(e)}')
+    # stop the instance: it is no longer required
+    os.system("sudo halt")
 
 if __name__ == "__main__":
     main()
