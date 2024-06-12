@@ -23,7 +23,7 @@ def printInterfaceInfo(*values: object):
 
 
 class MCServerInterface:
-    def __init__(self, minGb: int = 1, maxGb: int = 7, serverFolder: str = '../IER Serverpack 4.3.1/', serverStartedInfo: str = "joined the game") -> None:
+    def __init__(self, minGb: int = 1, maxGb: int = 7, serverFolder: str = './IER Serverpack 4.3.1/', serverStartedInfo: str = "joined the game") -> None:
         # save args
         self.minGb = minGb
         self.maxGb = maxGb
