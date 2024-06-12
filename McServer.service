@@ -1,6 +1,6 @@
 [Unit]
 Description=Minecraft server
-After=network.target
+After=multi-user.target
 StartLimitIntervalSec=0
 
 [Service]
@@ -8,7 +8,7 @@ Type=simple
 Restart=always
 RestartSec=1
 User=ec2-user
-ExecStart=/bin/bash -c 
+ExecStart=/usr/bin/python3 /home/ec2-user/server/Mc-Server-Watcher/main.py
 
 [Install]
 WantedBy=multi-user.target
