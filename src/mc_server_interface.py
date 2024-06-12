@@ -29,11 +29,13 @@ class MCServerInterface:
         self.maxGb = maxGb
         self.serverFolder = serverFolder
         self.serverStartedInfo = serverStartedInfo
+        self.idleTimeInSeconds = 600
 
         # track state
         self.isStarted = False
         self.didPlayersJoin = False
         self.playerCount = 0
+        self.stopScheduled = False
         self.isStopping = False
 
         # setup communication interface
@@ -83,11 +85,9 @@ class MCServerInterface:
         self._updatePlayerCount()
         self._updatePlayersJoined()
 
-        # server is active
-        if not self._checkIsServerAbandoned():
-            return
-        
-        self._stop()
+        # check if server is inactive
+        if self._checkIsServerAbandoned():
+            self._scheduleStop()
         
     def _updateStartedState(self, info: str):
         # server already finished starting
@@ -136,6 +136,26 @@ class MCServerInterface:
         
         # players are active
         return self.playerCount == 0
+    
+    def _scheduleStop(self):
+        # server is already scheduled to stop
+        if self.stopScheduled:
+            return
+
+        # schedule server to stop
+        self.stopScheduled = True
+
+        # stop server after 5 minutes, if it is still empty
+        threading.Timer(self.idleTimeInSeconds, self._stopIfEmpty).start()
+
+    def _stopIfEmpty(self):
+        # server is not empty
+        if self.playerCount > 0:
+            self.stopScheduled = False
+            return
+
+        # stop server
+        self._stop()
 
     def _stop(self):
         # ennsure server starts stopping process only one time!
