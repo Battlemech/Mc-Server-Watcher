@@ -1,5 +1,6 @@
 # install java
-sudo yum install default-jre -y
+sudo amazon-linux-extras enable corretto8
+sudo yum install java-21-openjdk-devel -y
 
 # install wget
 sudo yum install wget -y
