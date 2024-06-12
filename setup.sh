@@ -1,11 +1,8 @@
-# install git
-sudo yam install git -y
-
 # install java
-sudo yum install java-1.8.0-openjdk -y
+sudo yum install default-jre -y
 
 # install wget
 sudo yum install wget -y
 
-# download server pack, adding it to the server directory
-wget https://www.curseforge.com/api/v1/mods/339496/files/5128918/download
+# download server pack, unzip and remove zip
+wget https://mediafilez.forgecdn.net/files/5128/918/IER%20Serverpack%204.3.1.zip
