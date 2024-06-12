@@ -1,6 +1,5 @@
 # install java
-sudo amazon-linux-extras enable corretto8
-sudo yum install java-21-openjdk-devel -y
+sudo yum install java-11-amazon-corretto-headless -y
 
 # install wget
 sudo yum install wget -y
